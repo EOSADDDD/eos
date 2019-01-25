@@ -463,7 +463,8 @@ void mongo_db_plugin_impl::consume_blocks() {
          }
          auto time = fc::time_point::now() - start_time;
          auto per = size > 0 ? time.count()/size : 0;
-         if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         //if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         if( per > 10000 )
             ilog( "process_applied_transaction,  time per: ${p}, size: ${s}, time: ${t}", ("s", size)("t", time)("p", per) );
 
          start_time = fc::time_point::now();
@@ -475,7 +476,8 @@ void mongo_db_plugin_impl::consume_blocks() {
          }
          time = fc::time_point::now() - start_time;
          per = size > 0 ? time.count()/size : 0;
-         if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         //if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         if( per > 10000 )
             ilog( "process_accepted_transaction, time per: ${p}, size: ${s}, time: ${t}", ("s", size)( "t", time )( "p", per ));
 
          // process blocks
@@ -488,7 +490,8 @@ void mongo_db_plugin_impl::consume_blocks() {
          }
          time = fc::time_point::now() - start_time;
          per = size > 0 ? time.count()/size : 0;
-         if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         //if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         if( per > 10000 )
             ilog( "process_accepted_block,       time per: ${p}, size: ${s}, time: ${t}", ("s", size)("t", time)("p", per) );
 
          // process irreversible blocks
@@ -501,7 +504,8 @@ void mongo_db_plugin_impl::consume_blocks() {
          }
          time = fc::time_point::now() - start_time;
          per = size > 0 ? time.count()/size : 0;
-         if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         //if( time > fc::microseconds(500000) ) // reduce logging, .5 secs
+         if( per > 10000 )
             ilog( "process_irreversible_block,   time per: ${p}, size: ${s}, time: ${t}", ("s", size)("t", time)("p", per) );
 
          if( transaction_metadata_size == 0 &&
